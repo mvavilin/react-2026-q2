@@ -23,8 +23,11 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@services/*": ["src/services/*"],
+      "@types": ["src/types"],
       "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@constants": ["src/constants"],
+      "@constants/*": ["src/constants/*"]
     }
   },
   "include": ["src"]

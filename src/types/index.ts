@@ -1,12 +1,8 @@
-export interface Item {
-  id: string | number;
+export interface ApiItem {
   name: string;
-  description: string;
+  url: string;
 }
 
 export interface ApiResponse {
-  items: Item[];
-  total: number;
-  page: number;
-  limit: number;
+  results: ApiItem[];
 }
