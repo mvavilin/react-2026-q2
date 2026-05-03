@@ -1,11 +1,12 @@
 import { Component } from 'react';
-import { ErrorBoundary, ErrorButton } from '@components';
+import { ErrorBoundary, Header, Main } from '@components';
 
 class App extends Component {
   render() {
     return (
       <ErrorBoundary>
-        <ErrorButton />
+        <Header />
+        <Main />
       </ErrorBoundary>
     );
   }
