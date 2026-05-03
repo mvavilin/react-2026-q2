@@ -23,11 +23,22 @@ class ErrorBoundary extends Component<Props, State> {
     console.error('Component stack:', info.componentStack);
   }
 
+  resetError = () => {
+    this.setState({ hasError: false });
+  };
+
   render() {
     if (this.state.hasError) {
       return (
-        <div className='min-h-screen flex items-center justify-center'>
+        <div className='min-h-screen flex flex-col gap-4 items-center justify-center'>
           <ErrorMessage message='Something went wrong.' />
+
+          <button
+            onClick={this.resetError}
+            className='bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition hover:cursor-pointer'
+          >
+            Go back
+          </button>
         </div>
       );
     }
