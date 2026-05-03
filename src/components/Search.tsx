@@ -18,8 +18,18 @@ class Search extends Component<Props, State> {
     this.setState({ value: event.target.value });
   };
 
+  handleBlur = () => {
+    this.setState((prev) => ({
+      value: prev.value.trim(),
+    }));
+  };
+
   handleClick = () => {
-    this.props.onSearch(this.state.value);
+    const trimmed = this.state.value.trim();
+
+    this.setState({ value: trimmed });
+
+    this.props.onSearch(trimmed);
   };
 
   render() {
@@ -29,6 +39,7 @@ class Search extends Component<Props, State> {
           className='flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
           value={this.state.value}
           onChange={this.handleChange}
+          onBlur={this.handleBlur}
           placeholder='Search pokemon...'
         />
 

@@ -23,13 +23,11 @@ class Main extends Component<object, State> {
     items: [],
     loading: false,
     error: null,
-    search: '',
+    search: getStorageItem(KEY),
   };
 
   componentDidMount() {
-    const savedSearch = getStorageItem(KEY);
-
-    this.setState({ search: savedSearch }, () => this.loadData(savedSearch));
+    this.loadData(this.state.search);
   }
 
   loadData = async (search: string) => {
