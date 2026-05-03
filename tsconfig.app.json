@@ -21,6 +21,7 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
+      "@components": ["src/components"],
       "@components/*": ["src/components/*"],
       "@services/*": ["src/services/*"],
       "@types": ["src/types"],

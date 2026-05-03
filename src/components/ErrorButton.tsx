@@ -1,12 +1,31 @@
 import { Component } from 'react';
 
-class ErrorButton extends Component {
+interface State {
+  crash: boolean;
+}
+
+class ErrorButton extends Component<object, State> {
+  state: State = {
+    crash: false,
+  };
+
   handleClick = () => {
-    throw new Error('Test error from ErrorButton');
+    this.setState({ crash: true });
   };
 
   render() {
-    return null;
+    if (this.state.crash) {
+      throw new Error('Test Error Boundary');
+    }
+
+    return (
+      <button
+        onClick={this.handleClick}
+        className='bg-red-500 text-white px-4 py-2 rounded'
+      >
+        Error Button
+      </button>
+    );
   }
 }
 

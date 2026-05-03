@@ -1,8 +1,12 @@
 import { Component } from 'react';
 
-class ErrorMessage extends Component {
+interface Props {
+  message: string;
+}
+
+class ErrorMessage extends Component<Props> {
   render() {
-    return null;
+    return <p className='text-red-500 text-center'>{this.props.message}</p>;
   }
 }
 

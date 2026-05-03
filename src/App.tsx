@@ -1,8 +1,13 @@
-import React from 'react';
+import { Component } from 'react';
+import { ErrorBoundary, ErrorButton } from '@components';
 
-class App extends React.Component {
+class App extends Component {
   render() {
-    return <></>;
+    return (
+      <ErrorBoundary>
+        <ErrorButton />
+      </ErrorBoundary>
+    );
   }
 }
 
