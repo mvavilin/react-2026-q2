@@ -1,15 +1,9 @@
 import { Component } from 'react';
-import {
-  Search,
-  CardList,
-  Loader,
-  ErrorMessage,
-  ErrorButton,
-} from '@components';
 import { fetchItems } from '@services/api';
 import { getStorageItem, setStorageItem } from '@utils/localStorage';
 import type { Item } from '@types';
 import { KEY } from '@constants';
+import { SearchSection, ResultsSection } from '@components';
 
 interface State {
   items: Item[];
@@ -46,9 +40,7 @@ class Main extends Component<object, State> {
       if (error instanceof Error) {
         this.setState({ error: error.message });
       } else {
-        this.setState({
-          error: 'Unknown error occurred',
-        });
+        this.setState({ error: 'Unknown error occurred' });
       }
     } finally {
       this.setState({ loading: false });
@@ -70,25 +62,9 @@ class Main extends Component<object, State> {
 
     return (
       <main className='min-h-screen bg-gray-100 p-6'>
-        <section className='max-w-4xl mx-auto mb-8 rounded-2xl bg-white shadow p-6'>
-          <Search defaultValue={search} onSearch={this.handleSearch} />
-        </section>
+        <SearchSection search={search} onSearch={this.handleSearch} />
 
-        <section className='max-w-4xl mx-auto rounded-2xl bg-white shadow p-6 min-h-75'>
-          {loading && <Loader />}
-
-          {error && <ErrorMessage message={error} />}
-
-          {!loading && !error && items.length === 0 && (
-            <ErrorMessage message='No results found' />
-          )}
-
-          {!loading && !error && items.length > 0 && <CardList items={items} />}
-
-          <div className='mt-6'>
-            <ErrorButton />
-          </div>
-        </section>
+        <ResultsSection items={items} loading={loading} error={error} />
       </main>
     );
   }

@@ -7,3 +7,6 @@ export { default as Header } from '@components/Header';
 export { default as Loader } from '@components/Loader';
 export { default as Main } from '@components/Main';
 export { default as Search } from '@components/Search';
+export { default as ResultsContent } from '@components/ResultsContent';
+export { default as ResultsSection } from '@components/ResultsSection';
+export { default as SearchSection } from '@components/SearchSection';
