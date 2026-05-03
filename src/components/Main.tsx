@@ -44,8 +44,14 @@ class Main extends Component<object, State> {
       }));
 
       this.setState({ items });
-    } catch {
-      this.setState({ error: 'Failed to load data' });
+    } catch (error) {
+      if (error instanceof Error) {
+        this.setState({ error: error.message });
+      } else {
+        this.setState({
+          error: 'Unknown error occurred',
+        });
+      }
     } finally {
       this.setState({ loading: false });
     }
@@ -75,7 +81,11 @@ class Main extends Component<object, State> {
 
           {error && <ErrorMessage message={error} />}
 
-          {!loading && !error && <CardList items={items} />}
+          {!loading && !error && items.length === 0 && (
+            <ErrorMessage message='No results found' />
+          )}
+
+          {!loading && !error && items.length > 0 && <CardList items={items} />}
 
           <div className='mt-6'>
             <ErrorButton />
