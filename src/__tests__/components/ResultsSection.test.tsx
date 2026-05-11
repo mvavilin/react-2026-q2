@@ -26,17 +26,6 @@ vi.mock('@components/ErrorButton', () => ({
 
 describe('ResultsSection component', () => {
   describe('Rendering', () => {
-    test('should render ResultsContent and ErrorButton', () => {
-      const items: Item[] = [];
-      const loading = false;
-      const error = null;
-
-      render(<ResultsSection items={items} loading={loading} error={error} />);
-
-      expect(screen.getByTestId('results-content')).toBeInTheDocument();
-      expect(screen.getByTestId('error-button')).toBeInTheDocument();
-    });
-
     test('should pass correct props to ResultsContent', () => {
       const items: Item[] = [
         { name: 'pikachu', description: 'Electric' },

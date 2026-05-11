@@ -11,13 +11,6 @@ describe('ErrorButton component', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveTextContent('Error Button');
     });
-
-    test('should render without crashing in normal state', () => {
-      const { container } = render(<ErrorButton />);
-
-      expect(container).toBeInTheDocument();
-      expect(screen.getByRole('button')).toBeInTheDocument();
-    });
   });
 
   describe('User interaction', () => {

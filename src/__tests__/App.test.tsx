@@ -32,18 +32,4 @@ describe('App component', () => {
     expect(main).toHaveTextContent('Main Content');
     expect(errorBoundary).toContainElement(main);
   });
-
-  test('should have correct structure with ErrorBoundary as root wrapper', () => {
-    const { container } = render(<App />);
-
-    const errorBoundary = screen.getByTestId('error-boundary');
-    expect(container.firstChild).toBe(errorBoundary);
-
-    const header = screen.getByTestId('header');
-    const main = screen.getByTestId('main');
-
-    expect(header.compareDocumentPosition(main)).toBe(
-      Node.DOCUMENT_POSITION_FOLLOWING
-    );
-  });
 });

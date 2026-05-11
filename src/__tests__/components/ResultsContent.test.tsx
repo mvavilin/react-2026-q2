@@ -45,36 +45,16 @@ describe('ResultsContent component', () => {
   });
 
   describe('Error state', () => {
-    test('should show ErrorMessage when error is provided', () => {
-      const errorMessage = 'Failed to fetch data';
-
+    test.each([
+      ['Failed to fetch data'],
+      ['Internal Server Error'],
+      ['Not Found'],
+    ])('should display error message: %s', (errorMessage) => {
       render(
         <ResultsContent items={[]} loading={false} error={errorMessage} />
       );
-
-      expect(screen.getByTestId('error-message')).toBeInTheDocument();
       expect(screen.getByTestId('error-message')).toHaveTextContent(
-        'Failed to fetch data'
-      );
-    });
-
-    test('should show different error for server error (5xx)', () => {
-      const serverError = 'Internal Server Error';
-
-      render(<ResultsContent items={[]} loading={false} error={serverError} />);
-
-      expect(screen.getByTestId('error-message')).toHaveTextContent(
-        'Internal Server Error'
-      );
-    });
-
-    test('should show different error for client error (4xx)', () => {
-      const clientError = 'Not Found';
-
-      render(<ResultsContent items={[]} loading={false} error={clientError} />);
-
-      expect(screen.getByTestId('error-message')).toHaveTextContent(
-        'Not Found'
+        errorMessage
       );
     });
 

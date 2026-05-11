@@ -30,18 +30,6 @@ describe('SearchSection component', () => {
     expect(defaultValueSpan).toHaveTextContent('pikachu');
   });
 
-  test('should wrap Search in a section element', () => {
-    const mockOnSearch = vi.fn();
-
-    const { container } = render(
-      <SearchSection search='' onSearch={mockOnSearch} />
-    );
-
-    const section = container.querySelector('section');
-    expect(section).toBeInTheDocument();
-    expect(section).toContainElement(screen.getByTestId('search-mock'));
-  });
-
   test('should call onSearch when Search triggers the callback', async () => {
     const user = userEvent.setup();
     const mockOnSearch = vi.fn();

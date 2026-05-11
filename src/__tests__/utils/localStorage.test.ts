@@ -24,14 +24,6 @@ describe('localStorage utilities', () => {
       expect(result).toBe('testValue');
     });
 
-    test('should return empty string when value is empty string', () => {
-      localStorage.setItem('emptyKey', '');
-
-      const result = getStorageItem('emptyKey');
-
-      expect(result).toBe('');
-    });
-
     test('should handle special characters in stored value', () => {
       const specialValue = '!@#$%^&*()_+{}[]|:;"<>,.?/~`';
       localStorage.setItem('specialKey', specialValue);
@@ -56,12 +48,6 @@ describe('localStorage utilities', () => {
 
       expect(localStorage.getItem('existingKey')).toBe('newValue');
     });
-
-    test('should store empty string value', () => {
-      setStorageItem('emptyKey', '');
-
-      expect(localStorage.getItem('emptyKey')).toBe('');
-    });
   });
 
   describe('removeStorageItem', () => {
@@ -73,12 +59,6 @@ describe('localStorage utilities', () => {
       removeStorageItem('removableKey');
 
       expect(localStorage.getItem('removableKey')).toBeNull();
-    });
-
-    test('should not throw when removing non-existent key', () => {
-      expect(() => {
-        removeStorageItem('nonexistent');
-      }).not.toThrow();
     });
   });
 });

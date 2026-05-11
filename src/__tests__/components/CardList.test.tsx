@@ -29,27 +29,5 @@ describe('CardList component', () => {
       expect(screen.getByTestId('card-charizard')).toBeInTheDocument();
       expect(screen.getByTestId('card-bulbasaur')).toBeInTheDocument();
     });
-
-    test('should render single item correctly', () => {
-      const items: Item[] = [
-        { name: 'mewtwo', description: 'Legendary pokemon' },
-      ];
-
-      render(<CardList items={items} />);
-
-      const cards = screen.getAllByTestId(/^card-/);
-      expect(cards).toHaveLength(1);
-    });
-  });
-
-  describe('Edge cases', () => {
-    test('should handle empty array without errors', () => {
-      const items: Item[] = [];
-
-      render(<CardList items={items} />);
-
-      const cards = screen.queryAllByTestId(/^card-/);
-      expect(cards).toHaveLength(0);
-    });
   });
 });

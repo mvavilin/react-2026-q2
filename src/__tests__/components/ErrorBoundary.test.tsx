@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ErrorBoundary } from '@components';
+import { ErrorBoundary, ErrorButton } from '@components';
 
 const ThrowOnRender = ({ message = 'Test error' }: { message?: string }) => {
   throw new Error(message);
@@ -19,19 +19,9 @@ describe('ErrorBoundary component', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  const assertFallbackUI = () => {
-    expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /go back/i })
-    ).toBeInTheDocument();
-  };
-
-  const assertNoFallbackUI = () => {
-    expect(screen.queryByText('Something went wrong.')).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /go back/i })
-    ).not.toBeInTheDocument();
-  };
+  const getFallbackText = () => screen.queryByText('Something went wrong.');
+  const getGoBackButton = () =>
+    screen.queryByRole('button', { name: /go back/i });
 
   describe('Error catching', () => {
     test('should render children when no error occurs', () => {
@@ -42,7 +32,8 @@ describe('ErrorBoundary component', () => {
       );
 
       expect(screen.getByTestId('normal')).toBeInTheDocument();
-      assertNoFallbackUI();
+      expect(getFallbackText()).not.toBeInTheDocument();
+      expect(getGoBackButton()).not.toBeInTheDocument();
     });
 
     test('should display fallback UI and log error when child throws', () => {
@@ -52,7 +43,8 @@ describe('ErrorBoundary component', () => {
         </ErrorBoundary>
       );
 
-      assertFallbackUI();
+      expect(getFallbackText()).toBeInTheDocument();
+      expect(getGoBackButton()).toBeInTheDocument();
 
       const loggedError = consoleErrorSpy.mock.calls
         .flat()
@@ -84,21 +76,15 @@ describe('ErrorBoundary component', () => {
         </ErrorBoundary>
       );
 
-      assertFallbackUI();
+      expect(getFallbackText()).toBeInTheDocument();
 
-      await user.click(screen.getByRole('button', { name: /go back/i }));
+      await user.click(getGoBackButton()!);
 
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+      expect(getFallbackText()).toBeInTheDocument();
     });
   });
 
   describe('Integration with ErrorButton', () => {
-    let ErrorButton: React.ComponentType;
-
-    beforeAll(async () => {
-      ({ ErrorButton } = await import('@components'));
-    });
-
     test('should catch error and show fallback UI after ErrorButton click', async () => {
       const user = userEvent.setup();
 
@@ -108,13 +94,15 @@ describe('ErrorBoundary component', () => {
         </ErrorBoundary>
       );
 
-      expect(
-        screen.getByRole('button', { name: /error button/i })
-      ).toBeInTheDocument();
+      const errorButton = screen.getByRole('button', {
+        name: /error button/i,
+      });
+      expect(errorButton).toBeInTheDocument();
 
-      await user.click(screen.getByRole('button', { name: /error button/i }));
+      await user.click(errorButton);
 
-      assertFallbackUI();
+      expect(getFallbackText()).toBeInTheDocument();
+      expect(getGoBackButton()).toBeInTheDocument();
 
       expect(
         screen.queryByRole('button', { name: /error button/i })

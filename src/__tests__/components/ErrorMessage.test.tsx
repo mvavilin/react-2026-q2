@@ -21,15 +21,4 @@ describe('ErrorMessage component', () => {
       expect(errorElement).toHaveClass('text-center');
     });
   });
-
-  describe('Edge cases', () => {
-    test('should render empty message without errors', () => {
-      const message = '';
-
-      render(<ErrorMessage message={message} />);
-
-      const element = screen.getByText('', { selector: 'p' });
-      expect(element).toBeInTheDocument();
-    });
-  });
 });

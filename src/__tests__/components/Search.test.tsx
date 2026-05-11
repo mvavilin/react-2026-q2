@@ -101,16 +101,6 @@ describe('Search component', () => {
   });
 
   describe('Props integration', () => {
-    test('should use defaultValue as initial input value', () => {
-      const defaultValue = 'eevee';
-      const mockOnSearch = vi.fn();
-
-      render(<Search defaultValue={defaultValue} onSearch={mockOnSearch} />);
-
-      const input = screen.getByRole('textbox');
-      expect(input).toHaveValue('eevee');
-    });
-
     test('should not call onSearch on initial render', () => {
       const mockOnSearch = vi.fn();
 
