@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchSection from '@components/SearchSection';
 
-vi.mock('../../components/Search', () => ({
+vi.mock('@components/Search', () => ({
   default: ({
     defaultValue,
     onSearch,
